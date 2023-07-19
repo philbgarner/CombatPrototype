@@ -1,0 +1,5 @@
+[
+    { "name": "full-heart", "image": null, "filename": "./assets/hearts1.png" },
+    { "name": "half-heart", "image": null, "filename": "./assets/hearts2.png" },
+    { "name": "empty-heart", "image": null, "filename": "./assets/hearts3.png" }    
+]

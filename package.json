@@ -1,0 +1,24 @@
+{
+  "name": "battler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "npx serve dist"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@tweenjs/tween.js": "^21.0.0",
+    "three": "^0.153.0",
+    "three-obj-loader": "^1.1.3",
+    "webpack": "^5.86.0",
+    "xstate": "^4.37.2"
+  },
+  "devDependencies": {
+    "webpack-cli": "^5.1.4"
+  }
+}

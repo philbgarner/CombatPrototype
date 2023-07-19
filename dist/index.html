@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+
+			canvas {
+				height: 100%;
+				image-rendering: pixelated;
+				background-color: black;
+			}
+
+			body {
+				overflow: hidden;
+				margin: 0;
+				padding: 0;
+				background-color: black;
+				text-align: center;
+			}
+		</style>
+		<script type="module" src="./main.js"></script>
+		<script src="./gamecontroller.js"></script>	
+		<script src="./input.js"></script>
+		<script>
+			function moveCharacterUp() {
+				scene.actor.SetInput('vertical', -1)
+			}
+
+			function moveCharacterDown() {
+				scene.actor.SetInput('vertical', 1)
+			}
+
+			function moveCharacterRight() {
+				if (scene.actor.flipped) {
+					scene.actor.Flip()
+				}
+				scene.actor.SetInput('horizontal', 1)
+			}
+
+			function moveCharacterLeft() {
+				if (!scene.actor.flipped) {
+					scene.actor.Flip()
+				}
+				scene.actor.SetInput('horizontal', -1)
+			}
+
+			function stopCharacter(sx, sy) {
+				if (sx === 0 && !getState('moveRight') && !getState('moveLeft')) {
+					scene.actor.SetInput('horizontal', 0)
+				} else if (sx === 0 && getState('moveRight') && !getState('moveLeft')) {
+					scene.actor.SetInput('horizontal', 1)
+					if (scene.actor.flipped) {
+						scene.actor.Flip()
+					}
+				} else if (sx === 0 && !getState('moveRight') && getState('moveLeft')) {
+					scene.actor.SetInput('horizontal', -1)
+					if (!scene.actor.flipped) {
+						scene.actor.Flip()
+					}
+				}
+				scene.actor.SetInput('vertical', sy * scene.actor.GetInput('vertical'))
+			}
+
+			function attackCharacter() {
+				scene.actor.SetInput('attack', 1)
+			}
+
+			input.pressed('moveUp', () => moveCharacterUp())
+			input.released('moveUp', () => stopCharacter(1, 0))
+			input.pressed('moveRight', () => moveCharacterRight())
+			input.released('moveRight', () => stopCharacter(0, 1))
+			input.pressed('moveDown', () => moveCharacterDown())
+			input.released('moveDown', () => stopCharacter(1, 0))
+			input.pressed('moveLeft', () => moveCharacterLeft())
+			input.released('moveLeft', () => stopCharacter(0, 1))
+
+			input.pressed('attack', () => attackCharacter())
+			input.released('attack', () => { scene.actor.SetInput('attack', 0) })
+
+			input.listen()
+
+			async function start() {
+				await scene.loadAllImages()
+				await scene.loadScene()
+				scene.animate()
+				scene.moveCamera(0, 5, 11, 3200)
+			}
+		</script>
+	</head>
+	<body onload="start()">
+		<script src="./bfontjs.js"></script>
+		<script src="./bfont-imui.js"></script>
+		<script src="./fonts/eighties.js"></script>
+		<script src="./fonts/nightmare.js"></script>
+	</body>
+</html>

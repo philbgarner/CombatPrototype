@@ -1,0 +1,44 @@
+{
+    "non-starting-scenes": ["Scene2", "Scene3"],
+    
+    "spawn_list_easy": [
+        [{ "elapsedTime": 3, "location": { "x": 3, "y": -3 }, "entity": "enemy"}], [{ "elapsedTime": 3, "location": { "x": 3, "y": 3 }, "entity": "enemy"}],
+        [{ "elapsedTime": 3, "location": { "x": 3, "y": 0 }, "entity": "enemy"}]
+    ],
+
+    "spawn_list_medium": [
+        [
+            { "elapsedTime": 3, "location": { "x": 3, "y": -3 }, "entity": "enemy"},
+            { "elapsedTime": 6, "location": { "x": -3, "y": 0 }, "entity": "enemy"}
+        ],
+        [
+            { "elapsedTime": 3, "location": { "x": 3, "y": -1.5 }, "entity": "enemy"},
+            { "elapsedTime": 6, "location": { "x": -3, "y": 1.5 }, "entity": "enemy"}
+        ],
+        [
+            { "elapsedTime": 3, "location": { "x": 3, "y": 3 }, "entity": "enemy"},
+            { "elapsedTime": 6, "location": { "x": -3, "y": 0 }, "entity": "enemy"}
+        ]
+    ],
+
+    "spawn_list_hard": [
+        [
+            { "elapsedTime": 3, "location": { "x": 3, "y": -3 }, "entity": "enemy"},
+            { "elapsedTime": 6, "location": { "x": -3, "y": 0 }, "entity": "enemy"},
+            { "elapsedTime": 6, "location": { "x": 3, "y": 0 }, "entity": "enemy"}
+        ],
+        [
+            { "elapsedTime": 3, "location": { "x": 3, "y": -1.5 }, "entity": "enemy"},
+            { "elapsedTime": 6, "location": { "x": -3, "y": 1.5 }, "entity": "enemy"},
+            { "elapsedTime": 6, "location": { "x": 3, "y": 1.5 }, "entity": "enemy"}
+        ],
+        [
+            { "elapsedTime": 3, "location": { "x": 3, "y": 3 }, "entity": "enemy"},
+            { "elapsedTime": 6, "location": { "x": -3, "y": 0 }, "entity": "enemy"},
+            { "elapsedTime": 6, "location": { "x": 3, "y": 0 }, "entity": "enemy"}
+        ]
+    ],    
+
+    "spawn_list_easy_medium": ["[*spawn_list_easy]", "[*spawn_list_medium]"]
+
+}

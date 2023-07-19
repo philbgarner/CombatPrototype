@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Scene1",
+        "filename": "Scene1.gltf",
+        "spawnAfter": "[*spawn_list_easy_medium]"
+    },
+    {
+        "name": "Scene2",
+        "filename": "Scene2.gltf",
+        "spawnAfter": "[*spawn_list_easy_medium]"
+    },
+    {
+        "name": "Scene3",
+        "filename": "Scene3.gltf",
+        "spawnAfter": "[*spawn_list_hard]"
+    }
+]
