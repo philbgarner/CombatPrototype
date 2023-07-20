@@ -155,10 +155,10 @@ class Enemy extends Actor {
                 let dx = this.sprite.position.x - this.player.sprite.position.x
                 let dy = this.sprite.position.z - this.player.sprite.position.z
 
-                if (dx > this.attackRange / 2) {
+                if (dx > this.attackRange / 3) {
                     this.movement.set(-mx, this.movement.y)
                 }
-                if (dx < this.attackRange / 2) {
+                if (dx < this.attackRange / 4) {
                     this.movement.set(mx, this.movement.y)
                 }
                 

@@ -128,12 +128,16 @@ class Actor {
 
         this.SetBoundingBox(0, 0, 0.25, 0.25)
         
+        let atkMoveForce = 0.02
         if (params.stateMachine && !params.skipStateMachine) {
             this.stateMachine = interpret(params.stateMachine.withContext({ actor: this }))
                 .onTransition((state) => {
                     //console.log('transition happened', state.context, state.value)
                     if (state.context.actor.animationId !== state.value) {
                         state.context.actor.SetAnimation(state.value)
+                        if (state.context.actor.animationId.includes('attack')) {
+                            this.ApplyForce(new THREE.Vector3(this.flipped ? -atkMoveForce : atkMoveForce, 0, 0))
+                        }
                     }
                 })
             this.stateMachine.start()
@@ -142,6 +146,9 @@ class Actor {
                 .onTransition((state) => {
                     if (state.context.actor.animationId !== state.value) {
                         state.context.actor.SetAnimation(state.value)
+                        if (state.context.actor.animationId.includes('attack')) {
+                            this.ApplyForce(new THREE.Vector3(this.flipped ? -atkMoveForce : atkMoveForce, 0, 0))
+                        }
                     }
                 })
             this.stateMachine.start()

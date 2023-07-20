@@ -1,0 +1,14 @@
+Enemy Entrance Styles:
+
+- Jumps through window, breaking glass.
+    - Play animation on glass window mesh.
+    - Instantiate enemy sprite with jumping/falling animation.
+    - Switch to idle animation when it gets to y = 0.
+
+- Erupts from the ground.
+    - Effects system that plays an animation and then removes that effect from pipeline.
+    - Once effect is done playing, instantiate enemy sprite at location.
+
+- Hiding behind bushes/crates/etc.
+
+- Jumping out of trees/balconies/etc.
