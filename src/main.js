@@ -153,7 +153,7 @@ function loadScene() {
         light.intensity = 0.6
         scene.add(light)
         
-        loadSection('Scene1', { x: 0, y: 0, z: 0 })
+        loadSection('Scene2', { x: 0, y: 0, z: 0 })
         .then((gltf => {
             handleSectionLoad(gltf)
             camera.lookAt(new THREE.Vector3(0, 0, 0)) 

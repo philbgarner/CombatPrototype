@@ -148,6 +148,11 @@ class Enemy extends Actor {
             
             this.SetBoundingBox(0, 0, 0.25, 0.25)
 
+            // Update shadow sprite location.
+            if (this.shadow) {
+                this.shadow.position.set(this.sprite.position.x, 0.19, this.sprite.position.z)
+            }
+
             if (this.player) {
                 let mx = 1 / 64
                 let my = 1 / 64

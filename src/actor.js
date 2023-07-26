@@ -4,6 +4,7 @@ import actorMachine from './actorMachine.js'
 import { OBB } from 'three/addons/math/OBB.js'
 import { interpret } from 'xstate'
 import { getEnemies } from './main.js'
+import { BuildSprite } from './buildsprite.js'
 
 class Actor {
     constructor(params, scene) {
@@ -65,6 +66,15 @@ class Actor {
                 './assets/death/death8.png',
                 './assets/death/death9.png',
                 './assets/death/death10.png'
+            ],
+            jumping: [
+                './assets/jumping/jumping.png'
+            ],
+            falling: [
+                './assets/jumping/falling.png'
+            ],
+            apex: [
+                './assets/jumping/apex.png'
             ]
         }
         
@@ -93,6 +103,15 @@ class Actor {
                 this.textures[k].push(tex)
                 this.materials[k].push(new THREE.SpriteMaterial({ map: tex }))
             })
+        })
+
+        BuildSprite('./assets/shadow.png').then((shadow) => {
+            if (shadow) {
+                shadow.scale.set(0.4, 0.12, 1)
+                this.shadow = shadow
+                this.shadow.position.set(this.sprite.position.x, 0.19, this.sprite.position.z)
+                scene.add(shadow)
+            }
         })
         
         this.flipped = true
@@ -128,16 +147,19 @@ class Actor {
 
         this.SetBoundingBox(0, 0, 0.25, 0.25)
         
-        let atkMoveForce = 0.02
+        // If we're starting a new attack animation, apply movement force.
+        let atkMoveForce = 0.033
+        if (this.animationId.includes('attack') && this.currentSprite === 0) {
+            this.ApplyForce(new THREE.Vector3(this.flipped ? -atkMoveForce : atkMoveForce, 0, 0))
+        }
+
         if (params.stateMachine && !params.skipStateMachine) {
             this.stateMachine = interpret(params.stateMachine.withContext({ actor: this }))
                 .onTransition((state) => {
                     //console.log('transition happened', state.context, state.value)
                     if (state.context.actor.animationId !== state.value) {
                         state.context.actor.SetAnimation(state.value)
-                        if (state.context.actor.animationId.includes('attack')) {
-                            this.ApplyForce(new THREE.Vector3(this.flipped ? -atkMoveForce : atkMoveForce, 0, 0))
-                        }
+
                     }
                 })
             this.stateMachine.start()
@@ -146,9 +168,6 @@ class Actor {
                 .onTransition((state) => {
                     if (state.context.actor.animationId !== state.value) {
                         state.context.actor.SetAnimation(state.value)
-                        if (state.context.actor.animationId.includes('attack')) {
-                            this.ApplyForce(new THREE.Vector3(this.flipped ? -atkMoveForce : atkMoveForce, 0, 0))
-                        }
                     }
                 })
             this.stateMachine.start()
@@ -388,6 +407,11 @@ class Actor {
 
             // Apply force motion to sprite position.
             this.sprite.position.add(new THREE.Vector3(this.force.x, 0, this.force.y))
+
+            // Update shadow sprite location.
+            if (this.shadow) {
+                this.shadow.position.set(this.sprite.position.x, 0.19, this.sprite.position.z)
+            }
 
             this.SetBoundingBox(0, 0, 0.25, 0.25)
 
